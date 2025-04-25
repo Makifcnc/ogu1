@@ -15,6 +15,11 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float jumpForce = 14f;
     [SerializeField] private LayerMask jumpableGround;
 
+    [SerializeField] private GameObject fireballPrefab;
+    [SerializeField] private Transform attackpoint;
+    private float originalAttackPointX;
+
+
     private float dirX = 0f;
 
     private enum MovementState { idle, running, jumping, falling }
@@ -25,6 +30,8 @@ public class PlayerMovement : MonoBehaviour
         if (coll == null) coll = GetComponent<BoxCollider2D>();
         if (sprite == null) sprite = GetComponent<SpriteRenderer>();
         if (anim == null) anim = GetComponent<Animator>();
+        originalAttackPointX = attackpoint.localPosition.x;
+
     }
 
     private void Update()
@@ -45,6 +52,40 @@ public class PlayerMovement : MonoBehaviour
 
         // Animasyon güncelle
         UpdateAnimationState();
+
+        // Ateş topu atma kontrolü (F tuşu)
+        rb.linearVelocity = new Vector2(dirX * moveSpeed, rb.linearVelocity.y);
+        UpdateAnimationState();
+
+        if (Input.GetMouseButtonDown(0)) // sol click
+        {
+            anim.ResetTrigger("isShooting"); // varsa sıfırla
+            anim.SetTrigger("isShooting");   // sonra tekrar tetikle
+            Fire();
+            Debug.Log("Ateş ettim!");
+        }
+
+        // Sprite yönüne göre attackpoint pozisyonunu ayarla
+        if (sprite.flipX)
+        {
+            attackpoint.localPosition = new Vector3(-Mathf.Abs(originalAttackPointX), attackpoint.localPosition.y, attackpoint.localPosition.z);
+        }
+        else
+        {
+            attackpoint.localPosition = new Vector3(Mathf.Abs(originalAttackPointX), attackpoint.localPosition.y, attackpoint.localPosition.z);
+        }
+
+
+        //
+    }
+
+    private void Fire()
+    {
+        GameObject fireball = Instantiate(fireballPrefab, attackpoint.position, Quaternion.identity);
+
+        Vector2 fireDirection = sprite.flipX ? Vector2.left : Vector2.right;
+
+        fireball.GetComponent<Fireball>().SetDirection(fireDirection);
     }
 
     private void UpdateAnimationState()
