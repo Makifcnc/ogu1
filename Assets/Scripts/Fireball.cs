@@ -12,7 +12,14 @@ public class Fireball : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         moveDirection = dir.normalized;
+
+        SpriteRenderer sprite = GetComponent<SpriteRenderer>();
+        if (sprite != null)
+        {
+            sprite.flipX = dir.x < 0;
+        }
     }
+
 
     private void Start()
     {
