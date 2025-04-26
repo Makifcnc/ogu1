@@ -1,10 +1,25 @@
 fileFormatVersion: 2
-guid: 4d30bfa5442567a43a40d6aa3beadd00
+guid: 8007c8565dd13e04a8e19b889c636ebb
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 851856041474047149
-    second: breakable_0
+      213: -4281108431868446280
+    second: man_baam_0
+  - first:
+      213: -5266927034154359480
+    second: man_baam_1
+  - first:
+      213: -3527881361271489488
+    second: man_baam_2
+  - first:
+      213: 5357211802366665259
+    second: man_baam_3
+  - first:
+      213: 2189161457645680041
+    second: man_baam_4
+  - first:
+      213: -8725165849954771988
+    second: man_baam_5
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,7 +115,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: breakable_0
+      name: man_baam_0
       rect:
         serializedVersion: 2
         x: 0
@@ -115,14 +130,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: dacb4df6e8662db00800000000000000
-      internalID: 851856041474047149
+      spriteID: 8b93d8140927694c0800000000000000
+      internalID: -4281108431868446280
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: breakable_1
+      name: man_baam_1
       rect:
         serializedVersion: 2
         x: 32
@@ -135,10 +150,98 @@ TextureImporter:
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: 5de13446cb2807946a9323b68db66c92
-      internalID: 1864500027
+      spriteID: 845e35f84cd18e6b0800000000000000
+      internalID: -5266927034154359480
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_baam_2
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 03cf0bbe7927a0fc0800000000000000
+      internalID: -3527881361271489488
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_baam_3
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b22689220c3a85a40800000000000000
+      internalID: 5357211802366665259
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_baam_4
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9a572fe3fb6716e10800000000000000
+      internalID: 2189161457645680041
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: man_baam_5
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ceb931b23ebf9e680800000000000000
+      internalID: -8725165849954771988
       vertices: []
       indices: 
       edges: []
@@ -147,7 +250,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: ed1266eb6dbfa1e4791758e596e1df8a
+    spriteID: 4412aa2e238f92e47b3fbdf22605b3ab
     internalID: 0
     vertices: []
     indices: 
@@ -157,8 +260,12 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      breakable_0: 851856041474047149
-      breakable_1: 1864500027
+      man_baam_0: -4281108431868446280
+      man_baam_1: -5266927034154359480
+      man_baam_2: -3527881361271489488
+      man_baam_3: 5357211802366665259
+      man_baam_4: 2189161457645680041
+      man_baam_5: -8725165849954771988
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
