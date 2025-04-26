@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -5,12 +6,13 @@ public class PlayerStatus : MonoBehaviour
 {
     private bool isDead = false;
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
         if (isDead) return; // Eğer zaten öldüyse, ikinci kez tetiklenmesin
 
-        if (collision.CompareTag("Trap") || collision.CompareTag("Enemy"))
+        if (collision.gameObject.CompareTag("Trap") || collision.gameObject.CompareTag("Enemy"))
         {
+            Debug.Log("oldun");
             Die();
         }
     }
