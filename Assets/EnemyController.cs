@@ -18,7 +18,7 @@ public class EnemyController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         currentPoint = pointB.transform;
-        anim.SetBool("isRunning", true);
+        //anim.SetBool("isRunning", true);
     }
 
     void Update()
@@ -47,7 +47,7 @@ public class EnemyController : MonoBehaviour
     {
         isWaiting = true;
         rb.linearVelocity = UnityEngine.Vector2.zero;
-        anim.SetBool("isRunning", false);
+        //anim.SetBool("isRunning", false);
         yield return new WaitForSeconds(idleTime);
 
         if (currentPoint == pointB.transform)
@@ -60,7 +60,7 @@ public class EnemyController : MonoBehaviour
         }
 
         Flip();
-        anim.SetBool("isRunning", true);
+        //anim.SetBool("isRunning", true);
         isWaiting = false;
     }
 
