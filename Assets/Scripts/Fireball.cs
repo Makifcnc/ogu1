@@ -2,46 +2,56 @@ using UnityEngine;
 
 public class Fireball : MonoBehaviour
 {
+    [Header("Movement")]
     [SerializeField] private float speed = 10f;
     [SerializeField] private float lifeTime = 2f;
 
     private Rigidbody2D rb;
     private Vector2 moveDirection;
+    private SpriteRenderer sprite;
 
-    public void SetDirection(Vector2 dir)
+    private void Awake()
     {
+        // Fizik ve çizim bileşenlerini al
         rb = GetComponent<Rigidbody2D>();
-        moveDirection = dir.normalized;
-
-        SpriteRenderer sprite = GetComponent<SpriteRenderer>();
-        if (sprite != null)
-        {
-            sprite.flipX = dir.x < 0;
-        }
+        sprite = GetComponent<SpriteRenderer>();
     }
 
+    /// <summary>
+    /// Ateş topunun yönünü dışarıdan ayarlar.
+    /// </summary>
+    public void SetDirection(Vector2 dir)
+    {
+        moveDirection = dir.normalized;
+
+        // Sprite'ı da buna göre sağ/sol çevir
+        if (sprite != null)
+            sprite.flipX = dir.x < 0f;
+    }
 
     private void Start()
     {
-
-        Destroy(gameObject, lifeTime); // otomatik silinsin
+        // Belirttiğin süre sonra kendini yok et
+        Destroy(gameObject, lifeTime);
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
-        rb.linearVelocity = moveDirection * speed;
+        // Physics adımı: rb.velocity kullan
+        if (rb != null)
+            rb.linearVelocity = moveDirection * speed;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        // Düşmanla çarpışınca ikisini de yok et
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            Destroy(collision.gameObject); // düşmanı yok et
-            Destroy(gameObject);           // ateşi de yok et
+            Destroy(collision.gameObject);
+            Destroy(gameObject);
+            return;
         }
-        // else if (collision.gameObject.CompareTag("Obstacle"))
-        // {
-        //     Destroy(gameObject); // diğer şeylere çarpınca da kaybol
-        // }
+        // Eğer istemiyorsan başka nesneler ateşi durdurmasın,
+        // Player ile de çarpışmayı önlemek için layer ayarları yapmalısın.
     }
 }

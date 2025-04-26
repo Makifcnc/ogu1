@@ -7,12 +7,10 @@ public class EarthAbility : MonoBehaviour, IAbility
 
     [Tooltip("Altındaki kırılabilir blokları içeren Tilemap")]
     [SerializeField] private Tilemap breakableTilemap;
-
-    // Ne kadar aşağıya bakacağımızı kontrol eden offset
+    [Tooltip("Ayağın altını ne kadar aşağı kontrol edelim")]
     [SerializeField] private float checkOffsetY = 0.1f;
 
     [Header("Animation")]
-    [Tooltip("Animator’daki punch trigger adı")]
     [SerializeField] private string punchTrigger = "isPunching";
 
     private BoxCollider2D coll;
@@ -24,57 +22,57 @@ public class EarthAbility : MonoBehaviour, IAbility
         anim = GetComponent<Animator>();
         if (breakableTilemap == null)
             Debug.LogError("[EarthAbility] breakableTilemap atanmamış!");
+        if (anim == null)
+            Debug.LogError("[EarthAbility] Animator bulunamadı!");
     }
 
+    // 1) Sol tıkta sadece animasyonu tetikleyecek
     public void Use()
     {
-        Debug.Log("[EarthAbility] Use() tetiklendi!");
-        if (anim != null)
-        {
-            anim.ResetTrigger(punchTrigger);
-            anim.SetTrigger(punchTrigger);
-        }
+        anim.ResetTrigger(punchTrigger);
+        anim.SetTrigger(punchTrigger);
+    }
 
-        if (breakableTilemap == null) return;
+    // 2) Animasyonun son karesine Animation Event olarak ekleyeceğin metod
+    public void SpawnBreak()
+    {
+        if (breakableTilemap == null || coll == null) return;
 
-        // 1) Dünyadaki "ayağımızın altı" noktasını bul
         Bounds b = coll.bounds;
         Vector3 worldPoint = new Vector3(
             b.center.x,
             b.min.y - checkOffsetY,
             b.center.z
         );
-
-        // 2) Tilemap hücresine dönüştür
         Vector3Int cellPos = breakableTilemap.WorldToCell(worldPoint);
 
-        // 3) Hücrede gerçekten kırılabilir bir tile var mı?
         TileBase tile = breakableTilemap.GetTile(cellPos);
         if (tile != null)
         {
-            // 4) Kır: tile’ı kaldır
             breakableTilemap.SetTile(cellPos, null);
-            // İstersen parçacık, ses, puan vb. ekle burada
             Debug.Log($"[EarthAbility] Kırıldı: {cellPos}");
         }
-    }
-
-    private void OnDrawGizmosSelected()
-    {
-        if (coll != null && breakableTilemap != null)
+        else
         {
-            Bounds b = coll.bounds;
-            Vector3 worldPoint = new Vector3(
-                b.center.x,
-                b.min.y - checkOffsetY,
-                b.center.z
-            );
-            Vector3Int cellPos = breakableTilemap.WorldToCell(worldPoint);
-            Vector3 cellCenter = breakableTilemap.GetCellCenterWorld(cellPos);
-
-            Gizmos.color = Color.red;
-            Gizmos.DrawSphere(cellCenter, 0.1f);
+            Debug.Log($"[EarthAbility] Kırılacak tile yok: {cellPos}");
         }
     }
 
+    // (İsteğe bağlı) sahnede kontrol noktası göstermek için
+    private void OnDrawGizmosSelected()
+    {
+        if (coll == null || breakableTilemap == null) return;
+
+        Bounds b = coll.bounds;
+        Vector3 worldPoint = new Vector3(
+            b.center.x,
+            b.min.y - checkOffsetY,
+            b.center.z
+        );
+        Vector3Int cellPos = breakableTilemap.WorldToCell(worldPoint);
+        Vector3 cellCenter = breakableTilemap.GetCellCenterWorld(cellPos);
+
+        Gizmos.color = Color.red;
+        Gizmos.DrawSphere(cellCenter, 0.1f);
+    }
 }

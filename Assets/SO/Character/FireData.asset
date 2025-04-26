@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: FireData
   m_EditorClassIdentifier: 
   elementType: 0
-  tintColor: {r: 0.8196079, g: 0.3019608, b: 0.10196079, a: 0.78431374}
+  tintColor: {r: 0.6981132, g: 0.087478384, b: 0, a: 0.78431374}

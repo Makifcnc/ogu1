@@ -49,10 +49,9 @@ public class PlayerMovementComponent : MonoBehaviour
     public void Move(float dirX)
     {
         rb.linearVelocity = new Vector2(dirX * moveSpeed, rb.linearVelocity.y);
-        if (dirX > 0) sprite.flipX = false;
-        else if (dirX < 0) sprite.flipX = true;
         UpdateAnimation(dirX);
     }
+
 
     /// <summary>Zıplama: multiplier=1 normal, multiplier=airJumpMultiplier ile yüksek zıplama.</summary>
     [System.Obsolete]

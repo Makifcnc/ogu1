@@ -5,6 +5,7 @@ public class PlayerController : MonoBehaviour
 {
     [Header("Movement")]
     [SerializeField] private PlayerMovementComponent mover;
+    [SerializeField] private Transform attackPoint; // AttackPoint referansı ekle!
 
     [Header("Elements")]
     [SerializeField] private ElementData[] elements;   // sırası: Fire, Water, Earth, Air
@@ -12,6 +13,8 @@ public class PlayerController : MonoBehaviour
     private Dictionary<ElementType, IAbility> abilityMap;
     private IAbility currentAbility;
     private int currentIndex;
+
+    private bool isFacingRight = true; // karakter sağa bakıyor varsayalım
 
     private void Awake()
     {
@@ -25,11 +28,19 @@ public class PlayerController : MonoBehaviour
 
     private void Start() => ApplyElement(0);
 
+    [System.Obsolete]
     private void Update()
     {
         // Hareket & zıplama
         float dirX = Input.GetAxisRaw("Horizontal");
         mover.Move(dirX);
+
+        // Buraya yön kontrolü ekliyoruz
+        if (dirX > 0 && !isFacingRight)
+            Flip();
+        else if (dirX < 0 && isFacingRight)
+            Flip();
+
         if ((Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.Space))
              && mover.IsGrounded())
             mover.Jump();
@@ -54,12 +65,7 @@ public class PlayerController : MonoBehaviour
         c.a = 1f;
         sr.color = c;
 
-        // // 2) AnimController
-        // var anim = GetComponent<Animator>();
-        // if (data.animCtrl != null)
-        //     anim.runtimeAnimatorController = data.animCtrl;
-
-        // 3) Doğru ability'i seç
+        // 2) Doğru ability'i seç
         if (abilityMap.TryGetValue(data.elementType, out var ab))
             currentAbility = ab;
         else
@@ -67,4 +73,15 @@ public class PlayerController : MonoBehaviour
 
         Debug.Log($"[PlayerController] Mode → {data.elementType}, Ability → {currentAbility?.GetType().Name}");
     }
+
+    private void Flip()
+    {
+        isFacingRight = !isFacingRight;
+        Vector3 scale = transform.localScale;
+        scale.x = isFacingRight ? Mathf.Abs(scale.x) : -Mathf.Abs(scale.x);
+        transform.localScale = scale;
+    }
+
+
+
 }

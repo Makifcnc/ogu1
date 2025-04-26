@@ -1,54 +1,57 @@
 using UnityEngine;
+
 public class FireAbility : MonoBehaviour, IAbility
 {
+    [Header("Fireball Settings")]
     [SerializeField] private GameObject fireballPrefab;
-    [SerializeField] private Transform attackPoint;
-    private Animator anim;
-    private SpriteRenderer sprite;
-    private float originalAttackPointX;
+    [SerializeField] private float offsetForward = 0.5f;
+    [SerializeField] private float offsetUp = 0.2f;
+
     [Header("Animation")]
     [SerializeField] private string shootTrigger = "isShooting";
 
+    private Animator anim;
 
+    public ElementType ElementType => ElementType.Fire;
 
     private void Awake()
     {
-        sprite = GetComponent<SpriteRenderer>();
-        // AttackPoint'un Inspector'daki local X'ini saklıyoruz
         anim = GetComponent<Animator>();
-        originalAttackPointX = attackPoint.localPosition.x;
+        if (anim == null)
+            Debug.LogError($"[FireAbility] Animator bulunamadı: {gameObject.name}");
     }
 
-    public ElementType ElementType => ElementType.Fire;
+    // 1) Sol tıkta sadece animasyonu tetikleyecek
     public void Use()
     {
-        anim.ResetTrigger(shootTrigger);
-        anim.SetTrigger(shootTrigger);
+        if (anim != null)
+        {
+            anim.ResetTrigger(shootTrigger);
+            anim.SetTrigger(shootTrigger);
+        }
+    }
 
-        // 1) AttackPoint'u çevir (sol-sağ bakışa göre)
-        float x = sprite.flipX
-            ? -Mathf.Abs(originalAttackPointX)
-            : Mathf.Abs(originalAttackPointX);
-        attackPoint.localPosition = new Vector3(
-            x,
-            attackPoint.localPosition.y,
-            attackPoint.localPosition.z
-        );
+    // 2) Animasyonun son karesine ekleyeceğin Animation Event bunu çağıracak
+    public void SpawnFireball()
+    {
+        // Hangi yöne bakıyoruz?
+        float dirX = transform.localScale.x >= 0f ? 1f : -1f;
+        Vector3 dir = new Vector3(dirX, 0f, 0f);
 
-        // İstersen point'un kendisini de 180° döndürebilirsin:
-        attackPoint.localRotation = sprite.flipX
-            ? Quaternion.Euler(0, 0, 180)
-            : Quaternion.identity;
+        // Doğurulacak pozisyon
+        Vector3 spawnPos = transform.position
+                         + dir * offsetForward
+                         + Vector3.up * offsetUp;
 
-        // 2) Ateş topunu instantiate et
-        GameObject fb = Instantiate(
-            fireballPrefab,
-            attackPoint.position,
-            Quaternion.identity
-        );
+        // Fireball instantiate
+        var fb = Instantiate(fireballPrefab, spawnPos, Quaternion.identity);
 
-        // 3) Gideceği yönü ayarla
-        Vector2 dir = sprite.flipX ? Vector2.left : Vector2.right;
-        fb.GetComponent<Fireball>().SetDirection(dir);
+        // Yön bilgisini gönder
+        if (fb.TryGetComponent<Fireball>(out var fireball))
+            fireball.SetDirection(new Vector2(dirX, 0f));
+
+        // Sprite flip
+        if (fb.TryGetComponent<SpriteRenderer>(out var sr))
+            sr.flipX = dirX < 0f;
     }
 }
