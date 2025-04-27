@@ -1,6 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using System.Collections;
 
 public class EnemyController : MonoBehaviour
 {
@@ -9,7 +8,7 @@ public class EnemyController : MonoBehaviour
     private Rigidbody2D rb;
     private Animator anim;
     private Transform currentPoint;
-    [SerializeField] private float speed;
+    [SerializeField] private float speed = 2f;
     [SerializeField] private float idleTime = 2.0f;
     private bool isWaiting = false;
 
@@ -18,26 +17,24 @@ public class EnemyController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         currentPoint = pointB.transform;
-        //anim.SetBool("isRunning", true);
+        // anim.SetBool("isRunning", true);
     }
 
     void Update()
     {
-        UnityEngine.Vector2 point = currentPoint.position - transform.position;
-
         if (!isWaiting)
         {
             if (currentPoint == pointB.transform)
             {
-                rb.linearVelocity = new UnityEngine.Vector2(speed, 0);
+                rb.linearVelocity = new Vector2(speed, rb.linearVelocity.y);
             }
             else
             {
-                rb.linearVelocity = new UnityEngine.Vector2(-speed, 0);
+                rb.linearVelocity = new Vector2(-speed, rb.linearVelocity.y);
             }
         }
 
-        if (UnityEngine.Vector2.Distance(transform.position, currentPoint.position) < 0.5f && !isWaiting)
+        if (Vector2.Distance(transform.position, currentPoint.position) < 0.5f && !isWaiting)
         {
             StartCoroutine(WaitAndChangePoint());
         }
@@ -46,8 +43,8 @@ public class EnemyController : MonoBehaviour
     private IEnumerator WaitAndChangePoint()
     {
         isWaiting = true;
-        rb.linearVelocity = UnityEngine.Vector2.zero;
-        //anim.SetBool("isRunning", false);
+        rb.linearVelocity = Vector2.zero;
+        // anim.SetBool("isRunning", false);
         yield return new WaitForSeconds(idleTime);
 
         if (currentPoint == pointB.transform)
@@ -60,21 +57,25 @@ public class EnemyController : MonoBehaviour
         }
 
         Flip();
-        //anim.SetBool("isRunning", true);
+        // anim.SetBool("isRunning", true);
         isWaiting = false;
     }
 
     private void Flip()
     {
-        UnityEngine.Vector3 localScale = transform.localScale;
+        Vector3 localScale = transform.localScale;
         localScale.x *= -1;
         transform.localScale = localScale;
     }
 
     private void OnDrawGizmos()
     {
-        Gizmos.DrawWireSphere(pointA.transform.position, 0.5f);
-        Gizmos.DrawWireSphere(pointB.transform.position, 0.5f);
-        Gizmos.DrawLine(pointA.transform.position, pointB.transform.position);
+        if (pointA != null && pointB != null)
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(pointA.transform.position, 0.3f);
+            Gizmos.DrawWireSphere(pointB.transform.position, 0.3f);
+            Gizmos.DrawLine(pointA.transform.position, pointB.transform.position);
+        }
     }
 }

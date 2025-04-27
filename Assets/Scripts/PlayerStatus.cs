@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -8,20 +7,23 @@ public class PlayerStatus : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (isDead) return; // Eğer zaten öldüyse, ikinci kez tetiklenmesin
+        Debug.Log($"Çarptığın obje: {collision.gameObject.name} - Tag: {collision.gameObject.tag}");
+
+        if (isDead) return;
 
         if (collision.gameObject.CompareTag("Trap") || collision.gameObject.CompareTag("Enemy"))
         {
-            Debug.Log("oldun");
+            Debug.Log("Öldün! Düşman veya Tuzağa çarptın.");
             Die();
         }
     }
 
     private void Die()
     {
+        if (isDead) return; // Zaten öldüyse tekrar işlem yapma
         isDead = true;
-        // İstersen burada "ölme" animasyonu veya ses efekti çalabilirsin
-        Invoke(nameof(RestartLevel), 1f); // 1 saniye gecikmeli restart (animasyon için zaman)
+        Debug.Log("Oyuncu öldü, sahne yeniden yükleniyor...");
+        Invoke(nameof(RestartLevel), 1f);
     }
 
     private void RestartLevel()
