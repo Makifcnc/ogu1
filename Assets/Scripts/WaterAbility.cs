@@ -40,6 +40,8 @@ public class WaterAbility : MonoBehaviour, IAbility
             attackPoint.position,
             attackPoint.rotation
         );
+        AudioManager.Instance.PlaySFX("Ice");
+
 
         // 5 saniyede fade-out efekti
         var fade = ice.AddComponent<IceFadeOut>();

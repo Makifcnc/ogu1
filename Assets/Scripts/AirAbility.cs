@@ -16,12 +16,15 @@ public class AirAbility : MonoBehaviour, IAbility
     /// Hava elementindeyken, farenin sol tıkıyla
     /// ekstra güçlü zıplama yapar.
     /// </summary>
+    /// 
+    [System.Obsolete]
     public void Use()
     {
         // Yerdeyken normalden daha güçlü bir zıplama
         if (mover.IsGrounded())
         {
             mover.JumpHigh();
+            AudioManager.Instance.PlaySFX("Jump");
             Debug.Log("[AirAbility] Yüksek zıplama!");
         }
     }

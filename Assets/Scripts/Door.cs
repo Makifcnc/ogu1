@@ -17,6 +17,7 @@ public class Door : MonoBehaviour
         {
             isOpening = true;
             animator.SetTrigger("Open"); // Open trigger çalışır
+            AudioManager.Instance.PlaySFX("Door"); // Kapı açılma sesi
             Invoke(nameof(LoadNextLevel), 3f); // 1.5 saniye sonra sahne geçsin (animasyon süresi kadar)
         }
     }

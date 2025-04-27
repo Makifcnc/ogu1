@@ -51,6 +51,7 @@ public class EarthAbility : MonoBehaviour, IAbility
         {
             breakableTilemap.SetTile(cellPos, null);
             Debug.Log($"[EarthAbility] Kırıldı: {cellPos}");
+            AudioManager.Instance.PlaySFX("Dig");
         }
         else
         {

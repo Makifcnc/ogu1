@@ -6,6 +6,7 @@ public class Key : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
+            AudioManager.Instance.PlaySFX("Collect");
             PlayerInventory.Instance.HasKey = true;
             Destroy(gameObject); // Anahtar yok oluyor
         }

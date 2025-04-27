@@ -45,6 +45,8 @@ public class FireAbility : MonoBehaviour, IAbility
 
         // Fireball instantiate
         var fb = Instantiate(fireballPrefab, spawnPos, Quaternion.identity);
+        AudioManager.Instance.PlaySFX("Fire");
+
 
         // Yön bilgisini gönder
         if (fb.TryGetComponent<Fireball>(out var fireball))
@@ -54,5 +56,5 @@ public class FireAbility : MonoBehaviour, IAbility
         if (fb.TryGetComponent<SpriteRenderer>(out var sr))
             sr.flipX = dirX < 0f;
     }
-    
+
 }
