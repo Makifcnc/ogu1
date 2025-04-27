@@ -24,7 +24,8 @@ public class Fireball : MonoBehaviour
     {
         moveDirection = dir.normalized;
 
-        // Sprite'ı da buna göre sağ/sol çevir
+
+        // bu yanlış
         if (sprite != null)
             sprite.flipX = dir.x < 0f;
     }
@@ -44,14 +45,19 @@ public class Fireball : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        // Düşmanla çarpışınca ikisini de yok et
+        if (collision.gameObject.CompareTag("Fireball") || collision.gameObject.CompareTag("Player"))
+        {
+            return; // Kendisiyle çarpışmayı yok say
+        }
+
+
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            Destroy(collision.gameObject);
-            Destroy(gameObject);
-            return;
+            Destroy(collision.gameObject); // Enemy'yi yok et
         }
-        // Eğer istemiyorsan başka nesneler ateşi durdurmasın,
-        // Player ile de çarpışmayı önlemek için layer ayarları yapmalısın.
+
+        Destroy(gameObject); // Kendini yok et
     }
+
+
 }
