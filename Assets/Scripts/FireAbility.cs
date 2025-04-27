@@ -54,4 +54,5 @@ public class FireAbility : MonoBehaviour, IAbility
         if (fb.TryGetComponent<SpriteRenderer>(out var sr))
             sr.flipX = dirX < 0f;
     }
+    
 }
