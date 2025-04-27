@@ -15,6 +15,11 @@ public class NPC : MonoBehaviour
     {
         anim = GetComponent<Animator>();
     }
+    void Start()
+    {
+        Debug.Log($"Başlangıçta atanmış DialogueSO: {dialogueSO.name}");
+    }
+
 
     void OnEnable()
     {
@@ -43,7 +48,6 @@ public class NPC : MonoBehaviour
         if (actionableDialog == asd)
         {
             isAnimating = true;
-            anim.SetTrigger("hat");
             //AudioManager.Instance.PlayMusic("music1");
         }
     }

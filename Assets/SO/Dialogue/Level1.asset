@@ -16,26 +16,26 @@ MonoBehaviour:
   - characterName: Doktor
     dialogueText: "Hastal\u0131\u011F\u0131n ilerliyor, kendini kontrol alt\u0131nda
       tutmal\u0131s\u0131n..."
-    typeSpeed: 0.05
+    typeSpeed: 0.1
     isShaking: 0
   - characterName: Sen
     dialogueText: "Hay\u0131rr ben gayet iyiyim!!"
-    typeSpeed: 0.05
+    typeSpeed: 0.1
     isShaking: 1
   - characterName: Doktor
     dialogueText: "\"Q\" tu\u015Funa basarak karakter de\u011Fi\u015Ftirip duruyorsun "
-    typeSpeed: 0.05
+    typeSpeed: 0.1
     isShaking: 0
   - characterName: Sen
     dialogueText: ...
-    typeSpeed: 0.05
+    typeSpeed: 0.1
     isShaking: 0
   - characterName: Doktor
     dialogueText: "Sol Click (LMB) ile de g\xFCc\xFCn\xFC kullan\u0131yosun bunu
       yapma art\u0131k!!"
-    typeSpeed: 0.05
+    typeSpeed: 0.1
     isShaking: 1
   - characterName: Doktor
     dialogueText: "BEN\u0130 RAHAT BIRAK!!"
-    typeSpeed: 0.05
+    typeSpeed: 0.2
     isShaking: 1

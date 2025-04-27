@@ -23,7 +23,7 @@ public class PlayerStatus : MonoBehaviour
         if (isDead) return; // Zaten öldüyse tekrar işlem yapma
         isDead = true;
         Debug.Log("Oyuncu öldü, sahne yeniden yükleniyor...");
-        Invoke(nameof(RestartLevel), 1f);
+        Invoke(nameof(RestartLevel), 0.5f);
     }
 
     private void RestartLevel()

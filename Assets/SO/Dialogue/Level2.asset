@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee178c9cc0c77de44b53b0a3c75a4a47, type: 3}
+  m_Name: Level2
+  m_EditorClassIdentifier: 
+  dialogueLines:
+  - characterName: Doktor
+    dialogueText: "Evlat.. Senin g\xFC\xE7 sand\u0131\u011F\u0131n \u015Fey asl\u0131nda
+      bir hastal\u0131k. Kendini ke\u015Ffet ve tedaviye yan\u0131t ver\n\n"
+    typeSpeed: 0.2
+    isShaking: 0
+  - characterName: Sen
+    dialogueText: "Benim hakk\u0131mda ne biliyorsun ki sen?!"
+    typeSpeed: 0.4
+    isShaking: 1
+  - characterName: Doktor
+    dialogueText: "Senin iyi olman\u0131 istiyorum evlat...\nEn az\u0131ndan sol
+      click ile ate\u015F topu atarak kendini karanl\u0131k d\xFC\u015F\xFCncelerden
+      koru!!"
+    typeSpeed: 0.4
+    isShaking: 1
+  - characterName: Sen
+    dialogueText: ...
+    typeSpeed: 0.4
+    isShaking: 0
